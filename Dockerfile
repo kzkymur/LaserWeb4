@@ -16,6 +16,13 @@ FROM base AS dependencies
 RUN apk add --no-cache make gcc g++ python python3 linux-headers udev git
 # install node packages
 RUN npm set progress=false && npm config set depth 0
+RUN apk update \
+  && apk add git openssh
+RUN mkdir -m 700 ${HOME}/.ssh \
+    && ssh-keyscan github.com > ${HOME}/.ssh/known_hosts
+ADD .ssh /root/.ssh
+RUN chmod 600 /root/.ssh/*
+# RUN ssh -T git@github.com
 RUN npm ci
 
 #
@@ -41,4 +48,3 @@ RUN npm install && npm install -g nodemon
 # copy production node_modules
 COPY --from=dependencies /usr/src/app/node_modules node_modules
 # define CMD
-CMD [ "npm", "run", "start-server" ]

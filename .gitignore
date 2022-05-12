@@ -3,4 +3,5 @@ dist
 *.log
 .vscode
 .zip
+.ssh/git
 machine-profiles.json
