@@ -16,6 +16,10 @@ Docker user targets:
 - test
 
 You can run the release version of the app in Docker using the commands below.
+- set git IdentityFile
+```
+cp ~/.ssh/git ./.ssh/git
+```
 - build release image:
 ```
 docker build --target release -t laserweb4:release .
