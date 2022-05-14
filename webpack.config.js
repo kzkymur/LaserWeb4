@@ -7,7 +7,7 @@ var dist_path = path.resolve('./dist');
 module.exports = {
     context: src_path,
     entry: [
-        'webpack-dev-server/client?http://0.0.0.0:8080', 'webpack/hot/only-dev-server', 'babel-polyfill', './index.js'
+        'babel-polyfill', './index.js',
     ],
     output: {
         path: dist_path,
@@ -17,7 +17,16 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
+                exclude: {
+                    include: /node_modules/,
+                    exclude: [
+                        /node_modules\/chalk\/source\/index.js/,
+                        /node_modules\/ws\/lib\/stream.js/,
+                        /node_modules\/ws\/lib\/websocket-server.js/,
+                        /node_modules\/ws\/lib\/websocket.js/,
+                        /node_modules\/ws\/lib\/permessage-deflate.js/,
+                    ],
+                },
                 loader: 'babel-loader',
                 query: {
                     presets: ['react'],
@@ -60,11 +69,20 @@ module.exports = {
         new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery'}),
         new webpack.HotModuleReplacementPlugin(),
     ],
+
+    watch: true,
+    watchOptions: {
+        // 最初の変更からここで設定した期間に行われた変更は1度の変更の中で処理が行われる
+        aggregateTimeout: 200,
+        // ポーリングの間隔
+        poll: 1000
+    },
+
     devServer: {
         contentBase: dist_path,
-        inline: false,
         hot: true,
-        host: 'localhost' // originally 0.0.0.0
+        port: 8888,
+        host: '0.0.0.0' // originally 0.0.0.0
     },
     devtool: 'source-map'
 };

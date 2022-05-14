@@ -14,12 +14,13 @@ export function appendExt(filename, ext) {
     return (!filename.match(new RegExp(ext.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')+"$",'gi'))) ? (filename+ext):filename;
 }
 
-export function openDataWindow(data, mimetype='text/plain;charset=utf-8', target="data")
+export function openDataWindow(data, mimetype='text/plain;charset=utf-8', target=null)
 {
+        console.log(data);
         let blob = new Blob([data], {type: mimetype});
         let reader = new FileReader();
             reader.onloadend = function(e) {
-                window.open(reader.result,target);
+                const win = window.open(reader.result,target,'top=100,left=100,width=300,height=400');
             }
             reader.readAsDataURL(blob);
 }

@@ -1,0 +1,14 @@
+version: "3.4"
+
+services:
+  web:
+    build:
+      context: .
+      target: devLocal
+    volumes: 
+      - type: bind
+        source: ./src
+        target: /usr/src/app/src
+    ports:
+      - 8888:8888
+    command: npm run dev

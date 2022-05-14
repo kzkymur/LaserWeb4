@@ -1,5 +1,4 @@
 # LaserWeb (4.0.x)
-
 This repository is a "development environment" - and no regular user would have to touch this at all (dont download the repo from here, use the Download links below)
 
 ## Download
@@ -12,14 +11,31 @@ For more documentation, go to the [Wiki](https://github.com/LaserWeb/LaserWeb4/w
 
 Docker user targets:
 - dev
+- devLocal <- made by kzkymur
 - release
 - test
 
-You can run the release version of the app in Docker using the commands below.
-- set git IdentityFile
+### You can develop.
+#### init
+- set git IdentityFile (depends on your environment. it is example)
 ```
 cp ~/.ssh/git ./.ssh/git
 ```
+- build base image
+```
+docker build --target base -t laserweb4:base . -f ./Dockerfile.base
+```
+- build devLocal
+```
+docker-compose build
+```
+#### start
+```
+docker-compose up
+```
+
+---
+You can run the release version of the app in Docker using the commands below.
 - build release image:
 ```
 docker build --target release -t laserweb4:release .
