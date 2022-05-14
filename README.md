@@ -15,8 +15,24 @@ Docker user targets:
 - release
 - test
 
-### You can develop.
-#### init
+You can run the release version of the app in Docker using the commands below.
+- build release image:
+```
+docker build --target release -t laserweb4:release .
+```
+- run image:
+```
+docker run -it -device=/dev/ttyUSB0 --rm -p 8000:8000 laserweb4:release
+```
+- connect to app: http://localhost:8000
+
+## Develop (webpack-dev-server)
+### init
+- add submodules
+```
+git submodule init
+git submodule update
+```
 - set git IdentityFile (depends on your environment. it is example)
 ```
 cp ~/.ssh/git ./.ssh/git
@@ -29,22 +45,11 @@ docker build --target base -t laserweb4:base . -f ./Dockerfile.base
 ```
 docker-compose build
 ```
-#### start
+### start
 ```
 docker-compose up
 ```
-
----
-You can run the release version of the app in Docker using the commands below.
-- build release image:
-```
-docker build --target release -t laserweb4:release .
-```
-- run image:
-```
-docker run -it -device=/dev/ttyUSB0 --rm -p 8000:8000 laserweb4:release
-```
-- connect to app: http://localhost:8000
+- access to dev-server: http://localhost:8888
 
 ## Community
 Please use the community forum on https://forum.makerforums.info/c/laserweb-cncweb for questions and support.
