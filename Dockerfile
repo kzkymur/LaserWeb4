@@ -17,8 +17,6 @@ FROM laserweb4:base AS dev
 WORKDIR /usr/src/app
 COPY . .
 COPY --from=laserweb4:base /usr/src/app/node_modules node_modules
-RUN test=`ls -la`
-RUN echo "$test"
 CMD ["npm", "run", "start-app"]
 
 #
@@ -28,4 +26,5 @@ WORKDIR /usr/src/app
 COPY --from=laserweb4:base /usr/src/app/node_modules node_modules
 COPY webpack.config.js ./
 COPY .babelrc ./
+COPY dist/ ./dist/
 CMD ["npm", "run", "dev"]
